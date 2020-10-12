@@ -120,6 +120,7 @@ export default {
         // overwrite base url and headers
         config.baseURL = this.$store.getters['fm/settings/baseUrl'];
         config.headers = this.$store.getters['fm/settings/headers'];
+        config.params = {...config.params, page: this.settings.page}
 
         // loading spinner +
         this.$store.commit('fm/messages/addLoading');

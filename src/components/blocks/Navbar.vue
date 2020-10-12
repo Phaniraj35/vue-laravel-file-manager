@@ -102,13 +102,6 @@
                         <i class="fas fa-expand-arrows-alt"/>
                     </button>
                 </div>
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-secondary"
-                            v-bind:title="lang.btn.about"
-                            v-on:click="showModal('About')">
-                        <i class="fas fa-question"/>
-                    </button>
-                </div>
             </div>
         </div>
     </div>

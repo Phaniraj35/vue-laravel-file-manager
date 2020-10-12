@@ -118,14 +118,6 @@ export default {
             name: 'paste',
             icon: 'far fa-clipboard',
           },
-          {
-            name: 'zip',
-            icon: 'far fa-file-archive',
-          },
-          {
-            name: 'unzip',
-            icon: 'far fa-file-archive',
-          },
         ], [
           {
             name: 'delete',
