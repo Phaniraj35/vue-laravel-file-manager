@@ -157,7 +157,7 @@ export default {
             // set action result
             // this.$store.commit('fm/messages/setActionResult', message);
             this.$store.dispatch('setAlert', {
-              type: 'success',
+              type: message.status,
               message: message.message,
               component_name: 'fileManagerModal'
             })
