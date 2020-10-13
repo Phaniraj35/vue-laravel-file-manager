@@ -112,6 +112,18 @@ export default {
   },
   computed: {
 
+    maxFileUploadCount(){
+      return this.$store.state.fm.settings.maxFileUploadCount
+    },
+
+    maxSingleFileSize(){
+      return this.$store.state.fm.settings.maxSingleFileSize
+    },
+
+    maxPostSize(){
+      return this.$store.state.fm.settings.maxPostSize
+    },
+
     /**
      * Progress bar value - %
      * @returns {number}
@@ -129,18 +141,25 @@ export default {
     },
 
     /**
-     * Calculate the size of all files
+     * Calculate the size of all files in human readable format
      * @returns {*|string}
      */
     allFilesSize() {
+      return this.bytesToHuman(this.allFileSizeNumber);
+    },
+
+    /**
+     * Calculate the size of all files
+     * @returns {*|integer}
+     */
+    allFileSizeNumber() {
       let size = 0;
 
       for (let i = 0; i < this.newFiles.length; i += 1) {
         size += this.newFiles[i].size;
       }
-
-      return this.bytesToHuman(size);
-    },
+      return size;
+    }
 
   },
   methods: {
@@ -165,17 +184,36 @@ export default {
     uploadFiles() {
       // if files exists
       if (this.countFiles) {
+
+        if (this.countFiles > this.maxFileUploadCount) {
+          this.$store.dispatch('setAlert', {
+            type: "danger",
+            message: `Maximum ${this.maxFileUploadCount} files allowed`,
+            component_name: 'fileManagerModal'
+          })
+        }
+
+        else if (this.allFileSizeNumber > this.maxPostSize) {
+          this.$store.dispatch('setAlert', {
+            type: "danger",
+            message: 'Maximum File Upload size: ' + this.bytesToHuman(this.maxPostSize),
+            component_name: 'fileManagerModal'
+          })
+        }
+
         // upload files
-        this.$store.dispatch('fm/upload', {
-          files: this.newFiles,
-          overwrite: this.overwrite,
-        }).then((response) => {
-          // if upload is successful
-          if (response.data.result.status === 'success') {
-            // close modal window
-            this.hideModal();
-          }
-        });
+        else {
+          this.$store.dispatch('fm/upload', {
+            files: this.newFiles,
+            overwrite: this.overwrite,
+          }).then((response) => {
+            // if upload is successful
+            if (response.data.result.status === 'success') {
+              // close modal window
+              this.hideModal();
+            }
+          });
+        }
       }
     },
   },

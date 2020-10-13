@@ -36,6 +36,15 @@ export default {
       // axios default URL
       baseUrl: null,
 
+      //max number files that can be uploaded
+      maxFileUploadCount: 0,
+
+      //max single file size
+      maxSingleFileSize: 0,
+
+      //max post size
+      maxPostSize: 0,
+
       /**
        * File manager windows configuration
        * 1 - only one file manager window

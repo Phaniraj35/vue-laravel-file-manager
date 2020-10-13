@@ -15,6 +15,21 @@ export default {
     if (Object.prototype.hasOwnProperty.call(data, 'baseUrl')) {
       state.baseUrl = data.baseUrl;
     }
+
+    //max Post Size
+    if (Object.prototype.hasOwnProperty.call(data, 'maxPostSize')) {
+      state.maxPostSize = data.maxPostSize;
+    }
+
+    //max single File Size
+    if (Object.prototype.hasOwnProperty.call(data, 'maxSingleFileSize')) {
+      state.maxSingleFileSize = data.maxSingleFileSize;
+    }
+
+    //max upload file count
+    if (Object.prototype.hasOwnProperty.call(data, 'maxFileUploadCount')) {
+      state.maxFileUploadCount = data.maxFileUploadCount;
+    }
     // windows config
     if (Object.prototype.hasOwnProperty.call(data, 'windowsConfig')) {
       state.windowsConfig = data.windowsConfig;
