@@ -152,10 +152,15 @@ export default {
             };
 
             // show notification
-            EventBus.$emit('addNotification', message);
+            // EventBus.$emit('addNotification', message);
 
             // set action result
-            this.$store.commit('fm/messages/setActionResult', message);
+            // this.$store.commit('fm/messages/setActionResult', message);
+            this.$store.dispatch('setAlert', {
+              type: 'success',
+              message: message.message,
+              component_name: 'fileManagerModal'
+            })
           }
         }
 
@@ -199,10 +204,15 @@ export default {
         }
 
         // set error message
-        this.$store.commit('fm/messages/setError', errorMessage);
+        // this.$store.commit('fm/messages/setError', errorMessage);
 
         // show notification
-        EventBus.$emit('addNotification', errorNotificationMessage);
+        // EventBus.$emit('addNotification', errorNotificationMessage);
+        this.$store.dispatch('setAlert', {
+              type: 'danger',
+              message: errorMessage.message,
+              component_name: 'fileManagerModal'
+            })
 
         return Promise.reject(error);
       });

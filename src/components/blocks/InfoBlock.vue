@@ -32,11 +32,11 @@
                   v-bind:title="[ lang.clipboard.title + ' - ' + lang.clipboard[clipboardType] ]">
                 <i class="far fa-clipboard"/>
             </span>
-            <span v-on:click="showModal('Status')"
+            <!-- <span v-on:click="showModal('Status')"
                   v-bind:class="[hasErrors ? 'text-danger' : 'text-success']"
                   v-bind:title="lang.modal.status.title">
                 <i class="fas fa-info-circle"/>
-            </span>
+            </span> -->
         </div>
     </div>
 </template>
