@@ -3,48 +3,48 @@
         <div class="row justify-content-between">
             <div class="col-auto">
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-primary"
                             v-bind:disabled="backDisabled"
                             v-bind:title="lang.btn.back"
                             v-on:click="historyBack()">
                         <i class="fas fa-step-backward"/>
                     </button>
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-primary"
                             v-bind:disabled="forwardDisabled"
                             v-bind:title="lang.btn.forward"
                             v-on:click="historyForward()">
                         <i class="fas fa-step-forward"/>
                     </button>
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-primary"
                             v-on:click="refreshAll()"
                             v-bind:title="lang.btn.refresh">
                         <i class="fas fa-sync-alt"/>
                     </button>
                 </div>
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-primary"
                             v-on:click="showModal('NewFile')"
                             v-bind:title="lang.btn.file">
                         <i class="far fa-file"/>
                     </button>
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-primary"
                             v-on:click="showModal('NewFolder')"
                             v-bind:title="lang.btn.folder">
                         <i class="far fa-folder"/>
                     </button>
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-primary"
                             disabled
                             v-if="uploading"
                             v-bind:title="lang.btn.upload">
                         <i class="fas fa-upload"/>
                     </button>
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-primary"
                             v-else
                             v-on:click="showModal('Upload')"
                             v-bind:title="lang.btn.upload">
                         <i class="fas fa-upload"/>
                     </button>
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-primary"
                             v-bind:disabled="!isAnyItemSelected"
                             v-on:click="showModal('Delete')"
                             v-bind:title="lang.btn.delete">
@@ -52,50 +52,41 @@
                     </button>
                 </div>
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-primary"
                             v-bind:disabled="!isAnyItemSelected"
                             v-bind:title="lang.btn.copy"
                             v-on:click="toClipboard('copy')">
                         <i class="fas fa-copy"/>
                     </button>
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-primary"
                             v-bind:disabled="!isAnyItemSelected"
                             v-bind:title="lang.btn.cut"
                             v-on:click="toClipboard('cut')">
                         <i class="fas fa-cut"/>
                     </button>
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-primary"
                             v-bind:disabled="!clipboardType"
                             v-bind:title="lang.btn.paste"
                             v-on:click="paste">
                         <i class="fas fa-paste"/>
                     </button>
                 </div>
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-secondary"
-                            v-bind:title="lang.btn.hidden"
-                            v-on:click="toggleHidden">
-                        <i class="fas" v-bind:class="[hiddenFiles ? 'fa-eye': 'fa-eye-slash']"/>
-                    </button>
-                </div>
             </div>
             <div class="col-auto text-right">
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-primary"
                             v-bind:class="[viewType === 'table' ? 'active' : '']"
                             v-on:click="selectView('table')"
                             v-bind:title="lang.btn.table">
                         <i class="fas fa-th-list"/>
                     </button>
-                    <button role="button" class="btn btn-secondary"
+                    <button role="button" class="btn btn-primary"
                             v-bind:class="[viewType === 'grid' ? 'active' : '']"
                             v-on:click="selectView('grid')"
                             v-bind:title="lang.btn.grid">
                         <i class="fas fa-th"/>
                     </button>
-                </div>
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-primary"
                             v-bind:title="lang.btn.fullScreen"
                             v-bind:class="{ active: fullScreen }"
                             v-on:click="screenToggle">

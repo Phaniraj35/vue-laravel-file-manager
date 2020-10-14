@@ -44,23 +44,6 @@
                            class="far fa-copy"/>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-2">{{ lang.modal.properties.url }}:</div>
-                    <div class="col-9">
-                        <span v-if="url">{{ url }}</span>
-                        <span v-else>
-                            <button v-on:click="getUrl" type="button"
-                                    class="btn btn-sm btn-light">
-                                <i class="fas fa-sm fa-link"/> Get URL
-                            </button>
-                        </span>
-                    </div>
-                    <div v-if="url" class="col-1 text-right">
-                        <i v-on:click="copyToClipboard(url)"
-                           v-bind:title="lang.clipboard.copy"
-                           class="far fa-copy"/>
-                    </div>
-                </div>
             </template>
             <template v-if="selectedItem.hasOwnProperty('timestamp')">
                 <div class="row">
@@ -147,10 +130,15 @@ export default {
       document.body.removeChild(copyInputHelper);
 
       // Notification
-      EventBus.$emit('addNotification', {
-        status: 'success',
+    //   EventBus.$emit('addNotification', {
+    //     status: 'success',
+    //     message: this.lang.notifications.copyToClipboard,
+    //   });
+    this.$store.dispatch('setAlert', {
+        type: "success",
         message: this.lang.notifications.copyToClipboard,
-      });
+        component_name: 'fileManagerModal'
+      })
     },
   },
 };
