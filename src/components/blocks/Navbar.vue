@@ -23,11 +23,6 @@
                 </div>
                 <div class="btn-group" role="group">
                     <button type="button" class="btn btn-primary"
-                            v-on:click="showModal('NewFile')"
-                            v-bind:title="lang.btn.file">
-                        <i class="far fa-file"/>
-                    </button>
-                    <button type="button" class="btn btn-primary"
                             v-on:click="showModal('NewFolder')"
                             v-bind:title="lang.btn.folder">
                         <i class="far fa-folder"/>
@@ -85,12 +80,6 @@
                             v-on:click="selectView('grid')"
                             v-bind:title="lang.btn.grid">
                         <i class="fas fa-th"/>
-                    </button>
-                    <button type="button" class="btn btn-primary"
-                            v-bind:title="lang.btn.fullScreen"
-                            v-bind:class="{ active: fullScreen }"
-                            v-on:click="screenToggle">
-                        <i class="fas fa-expand-arrows-alt"/>
                     </button>
                 </div>
             </div>

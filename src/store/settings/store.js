@@ -99,10 +99,6 @@ export default {
             icon: 'fas fa-eye',
           },
           {
-            name: 'edit',
-            icon: 'fas fa-file-signature',
-          },
-          {
             name: 'select',
             icon: 'fas fa-check',
           },
