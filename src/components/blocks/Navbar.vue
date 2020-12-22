@@ -2,7 +2,7 @@
     <div class="fm-navbar mb-3">
         <div class="row justify-content-between">
             <div class="col-auto">
-                <div class="btn-group" role="group">
+                <!-- <div class="btn-group" role="group">
                     <button type="button" class="btn btn-primary"
                             v-bind:disabled="backDisabled"
                             v-bind:title="lang.btn.back"
@@ -20,12 +20,17 @@
                             v-bind:title="lang.btn.refresh">
                         <i class="fas fa-sync-alt"/>
                     </button>
-                </div>
+                </div> -->
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-primary"
+                    <!-- <button type="button" class="btn btn-primary"
                             v-on:click="showModal('NewFolder')"
                             v-bind:title="lang.btn.folder">
                         <i class="far fa-folder"/>
+                    </button> -->
+                    <button type="button" class="btn btn-primary"
+                            v-on:click="refreshAll()"
+                            v-bind:title="lang.btn.refresh">
+                        <i class="fas fa-sync-alt"/>
                     </button>
                     <button type="button" class="btn btn-primary"
                             disabled
