@@ -51,7 +51,7 @@
                         <i class="fas fa-trash-alt"/>
                     </button>
                 </div>
-                <div class="btn-group" role="group">
+                <!-- <div class="btn-group" role="group">
                     <button type="button" class="btn btn-primary"
                             v-bind:disabled="!isAnyItemSelected"
                             v-bind:title="lang.btn.copy"
@@ -70,7 +70,7 @@
                             v-on:click="paste">
                         <i class="fas fa-paste"/>
                     </button>
-                </div>
+                </div> -->
             </div>
             <div class="col-auto text-right">
                 <div class="btn-group" role="group">
