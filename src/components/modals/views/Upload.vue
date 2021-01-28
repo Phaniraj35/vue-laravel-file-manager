@@ -19,10 +19,11 @@
                      v-bind:key="index">
                     <div class="w-75 text-truncate">
                         <i class="far" v-bind:class="mimeToIcon(item.type)"/>
-                        {{ item.name }}
+                        {{ item.name }} ({{ bytesToHuman(item.size) }})
                     </div>
                     <div class="text-right">
-                        {{ bytesToHuman(item.size) }}
+                        <!-- {{ bytesToHuman(item.size) }} -->
+                        <i class="fas fa-times-circle" style="cursor: pointer;" @click="removeFileAtIndex(index)"></i>
                     </div>
                 </div>
                 <hr>
@@ -87,6 +88,10 @@
                     v-bind:class="[countFiles ? 'btn-info' : 'btn-light']"
                     v-bind:disabled="!countFiles"
                     v-on:click="uploadFiles">{{ lang.btn.submit }}
+            </button>
+            <button class="btn btn-danger" v-if="countFiles"
+                    v-bind:disabled="!countFiles"
+                    v-on:click="clearAllFiles">{{ lang.btn.clearSelect }}
             </button>
             <button class="btn btn-light" v-on:click="hideModal()">{{ lang.btn.cancel }}</button>
         </div>
@@ -163,6 +168,17 @@ export default {
 
   },
   methods: {
+
+    clearAllFiles() {
+      if (confirm("Do you really want to clear all selected files?")) {
+        this.newFiles = [];
+      }
+    },
+
+    removeFileAtIndex(index) {
+      this.newFiles.splice(index, 1);
+    },
+
     /**
      * Select file or files
      * @param event
@@ -174,7 +190,11 @@ export default {
         this.newFiles = [];
       } else {
         // we have file or files
-        this.newFiles = event.target.files;
+        let files = event.target.files;
+        
+        files.forEach((file) => {
+          this.newFiles.push(file);
+        })
       }
     },
 
