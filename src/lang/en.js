@@ -24,6 +24,7 @@ const en = {
     upload: 'Upload',
     uploadSelect: 'Select files',
     hidden: ' Hidden files',
+    clearSelect: 'Clear all selected files'
   },
   clipboard: {
     actionType: 'Type',

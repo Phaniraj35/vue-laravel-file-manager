@@ -190,7 +190,7 @@ export default {
         this.newFiles = [];
       } else {
         // we have file or files
-        let files = event.target.files;
+        let files = Array.from(event.target.files);
         
         files.forEach((file) => {
           this.newFiles.push(file);
