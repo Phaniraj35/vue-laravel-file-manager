@@ -32,10 +32,17 @@ export default {
    * Get content (files and folders)
    * @param disk
    * @param path
+   * @param dateFilter
+   * @param typeFilter
+   * @param searchText
    * @returns {*}
    */
-  content(disk, path) {
-    return HTTP.get('content', { params: { disk, path } });
+  content(disk, path, dateFilter, typeFilter, searchText) {
+    return HTTP.get('content', {
+      params: {
+        disk, path, dateFilter, typeFilter, searchText,
+      },
+    });
   },
 
   /**

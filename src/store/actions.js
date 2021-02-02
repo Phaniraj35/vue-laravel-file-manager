@@ -61,6 +61,9 @@ export default {
           manager: 'left',
           disk: leftDisk,
           path: leftPath,
+          dateFilter: '',
+          typeFilter: '',
+          searchText: '',
         });
 
         // if selected left and right managers
@@ -77,6 +80,9 @@ export default {
             manager: 'right',
             disk: rightDisk,
             path: rightPath,
+            dateFilter: '',
+            typeFilter: '',
+            searchText: '',
           });
         } else if (state.settings.windowsConfig === 2) {
           // if selected left manager and directories tree
@@ -98,9 +104,12 @@ export default {
    * @param manager
    * @param disk
    * @param path
+   * @param dateFilter
+   * @param typeFilter
+   * @param searchText
    */
-  getLoadContent(context, { manager, disk, path }) {
-    GET.content(disk, path).then((response) => {
+  getLoadContent(context, { manager, disk, path, dateFilter, typeFilter, searchText }) {
+    GET.content(disk, path, dateFilter, typeFilter, searchText).then((response) => {
       if (response.data.result.status === 'success') {
         context.commit(`${manager}/setDirectoryContent`, response.data);
       }

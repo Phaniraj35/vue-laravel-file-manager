@@ -16,17 +16,17 @@ export default {
       state.baseUrl = data.baseUrl;
     }
 
-    //max Post Size
+    // max Post Size
     if (Object.prototype.hasOwnProperty.call(data, 'maxPostSize')) {
       state.maxPostSize = data.maxPostSize;
     }
 
-    //max single File Size
+    // max single File Size
     if (Object.prototype.hasOwnProperty.call(data, 'maxSingleFileSize')) {
       state.maxSingleFileSize = data.maxSingleFileSize;
     }
 
-    //max upload file count
+    // max upload file count
     if (Object.prototype.hasOwnProperty.call(data, 'maxFileUploadCount')) {
       state.maxFileUploadCount = data.maxFileUploadCount;
     }
@@ -115,5 +115,33 @@ export default {
    */
   toggleHiddenFiles(state) {
     state.hiddenFiles = !state.hiddenFiles;
+  },
+
+  setDateFilter(state, data) {
+    state.dateFilter = data;
+  },
+
+  setTypeFilter(state, data) {
+    state.typeFilter = data;
+  },
+
+  setSearchText(state, data) {
+    state.searchText = data;
+  },
+
+  resetDateFilter(state) {
+    state.dateFilter = null;
+  },
+
+  resetTypeFilter(state) {
+    state.typeFilter = null;
+  },
+
+  resetSearchText(state) {
+    state.searchText = null;
+  },
+
+  showFilter: (state) => {
+    state.toggleFilter = !state.toggleFilter;
   },
 };

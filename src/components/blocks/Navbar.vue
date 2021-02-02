@@ -1,57 +1,9 @@
 <template>
     <div class="fm-navbar mb-3">
-        <div class="row justify-content-between">
-            <div class="col-auto">
-                <!-- <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-primary"
-                            v-bind:disabled="backDisabled"
-                            v-bind:title="lang.btn.back"
-                            v-on:click="historyBack()">
-                        <i class="fas fa-step-backward"/>
-                    </button>
-                    <button type="button" class="btn btn-primary"
-                            v-bind:disabled="forwardDisabled"
-                            v-bind:title="lang.btn.forward"
-                            v-on:click="historyForward()">
-                        <i class="fas fa-step-forward"/>
-                    </button>
-                    <button type="button" class="btn btn-primary"
-                            v-on:click="refreshAll()"
-                            v-bind:title="lang.btn.refresh">
-                        <i class="fas fa-sync-alt"/>
-                    </button>
-                </div> -->
+        <div class="row">
+            <div class="col-sm-4">
                 <div class="btn-group" role="group">
-                    <!-- <button type="button" class="btn btn-primary"
-                            v-on:click="showModal('NewFolder')"
-                            v-bind:title="lang.btn.folder">
-                        <i class="far fa-folder"/>
-                    </button> -->
-                    <!-- <button type="button" class="btn btn-primary"
-                            v-on:click="refreshAll()"
-                            v-bind:title="lang.btn.refresh">
-                        <i class="fas fa-sync-alt"/>
-                    </button>
-                    <button type="button" class="btn btn-primary"
-                            disabled
-                            v-if="uploading"
-                            v-bind:title="lang.btn.upload">
-                        <i class="fas fa-upload"/>
-                    </button>
-                    <button type="button" class="btn btn-primary"
-                            v-else
-                            v-on:click="showModal('Upload')"
-                            v-bind:title="lang.btn.upload">
-                        <i class="fas fa-upload"/>
-                    </button>
-                    <button type="button" class="btn btn-primary"
-                            v-bind:disabled="!isAnyItemSelected"
-                            v-on:click="showModal('Delete')"
-                            v-bind:title="lang.btn.delete">
-                        <i class="fas fa-trash-alt"/>
-                    </button> -->
-                </div>
-                <div class="btn-group" role="group">
+
                   <button type="button" class="btn btn-primary"
                             v-on:click="refreshAll()"
                             v-bind:title="lang.btn.refresh">
@@ -75,24 +27,7 @@
                             v-bind:title="lang.btn.delete">
                         <i class="fas fa-trash-alt"/>
                     </button>
-                    <!-- <button type="button" class="btn btn-primary"
-                            v-bind:disabled="!isAnyItemSelected"
-                            v-bind:title="lang.btn.copy"
-                            v-on:click="toClipboard('copy')">
-                        <i class="fas fa-copy"/>
-                    </button>
-                    <button type="button" class="btn btn-primary"
-                            v-bind:disabled="!isAnyItemSelected"
-                            v-bind:title="lang.btn.cut"
-                            v-on:click="toClipboard('cut')">
-                        <i class="fas fa-cut"/>
-                    </button>
-                    <button type="button" class="btn btn-primary"
-                            v-bind:disabled="!clipboardType"
-                            v-bind:title="lang.btn.paste"
-                            v-on:click="paste">
-                        <i class="fas fa-paste"/> -->
-                    </button>
+
                     <button type="button" class="btn btn-primary"
                             v-bind:class="[viewType === 'table' ? 'active' : '']"
                             v-on:click="selectView('table')"
@@ -105,24 +40,14 @@
                             v-bind:title="lang.btn.grid">
                         <i class="fas fa-th"/>
                     </button>
-                </div>
-            </div>
-            <!-- <div class="col-auto text-right"> -->
-                <div class="btn-group" role="group">
-                    <!-- <button type="button" class="btn btn-primary"
-                            v-bind:class="[viewType === 'table' ? 'active' : '']"
-                            v-on:click="selectView('table')"
-                            v-bind:title="lang.btn.table">
-                        <i class="fas fa-th-list"/>
-                    </button>
                     <button role="button" class="btn btn-primary"
-                            v-bind:class="[viewType === 'grid' ? 'active' : '']"
-                            v-on:click="selectView('grid')"
-                            v-bind:title="lang.btn.grid">
-                        <i class="fas fa-th"/>
-                    </button> -->
-                </div>
-            <!-- </div> -->
+                            v-on:click.prevent="toggleFilterView"
+                            v-bind:title="lang.btn.filter">
+                        <i class="fas fa-filter"/>
+                    </button>
+                </div> <!--btn-grp-->
+
+            </div> <!--col-->
         </div>
     </div>
 </template>
@@ -133,6 +58,12 @@ import EventBus from '../../eventBus';
 
 export default {
   mixins: [translate],
+
+  data() {
+    return {
+      selectOptions: ['Images', 'Videos', 'Documents'],
+    };
+  },
   computed: {
     /**
      * Active manager name
@@ -209,6 +140,10 @@ export default {
     },
   },
   methods: {
+    toggleFilterView() {
+      this.$store.commit('fm/settings/showFilter');
+    },
+
     /**
      * Refresh file manager
      */
@@ -317,11 +252,8 @@ export default {
 };
 </script>
 
-<style lang="scss">
-    .fm-navbar {
-
-        .btn-group {
-            margin-right: 0.4rem;
-        }
+<style lang="css">
+    .fm-navbar.btn-group {
+        margin-right: 0.4rem;
     }
 </style>

@@ -43,24 +43,30 @@ export default {
    * @param state
    * @param commit
    * @param dispatch
+   * @param rootState
    */
-  refreshDirectory({ state, commit, dispatch }) {
-    GET.content(state.selectedDisk, state.selectedDirectory).then((response) => {
-      commit('resetSelected');
-      commit('resetSortSettings');
-      commit('resetHistory');
+  refreshDirectory({ state, commit, dispatch, rootState }) {
+    const dateFilter = rootState.fm.settings.dateFilter;
+    const typeFilter = rootState.fm.settings.typeFilter;
+    const searchText = rootState.fm.settings.searchText;
 
-      // add to history selected directory
-      if (state.selectedDirectory) commit('addToHistory', state.selectedDirectory);
+    GET.content(state.selectedDisk, state.selectedDirectory, dateFilter, typeFilter, searchText)
+      .then((response) => {
+        commit('resetSelected');
+        commit('resetSortSettings');
+        commit('resetHistory');
 
-      if (response.data.result.status === 'success') {
-        commit('setDirectoryContent', response.data);
-      } else if (response.data.result.status === 'danger') {
-        // If directory not found try to load main directory
-        commit('setSelectedDirectory', null);
-        dispatch('refreshDirectory');
-      }
-    });
+        // add to history selected directory
+        if (state.selectedDirectory) commit('addToHistory', state.selectedDirectory);
+
+        if (response.data.result.status === 'success') {
+          commit('setDirectoryContent', response.data);
+        } else if (response.data.result.status === 'danger') {
+          // If directory not found try to load main directory
+          commit('setSelectedDirectory', null);
+          dispatch('refreshDirectory');
+        }
+      });
   },
 
   /**

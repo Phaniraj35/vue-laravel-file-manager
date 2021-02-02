@@ -36,14 +36,24 @@ export default {
       // axios default URL
       baseUrl: null,
 
-      //max number files that can be uploaded
+      // max number files that can be uploaded
       maxFileUploadCount: 0,
 
-      //max single file size
+      // max single file size
       maxSingleFileSize: 0,
 
-      //max post size
+      // max post size
       maxPostSize: 0,
+
+      // date filter
+      dateFilter: null,
+
+      // type filter
+      typeFilter: null,
+
+      searchText: null,
+
+      toggleFilter: false,
 
       /**
        * File manager windows configuration
@@ -106,24 +116,7 @@ export default {
             name: 'download',
             icon: 'fas fa-download',
           },
-        ], [
-          {
-            name: 'copy',
-            icon: 'far fa-copy',
-          },
-          {
-            name: 'cut',
-            icon: 'fas fa-cut',
-          },
-          {
-            name: 'rename',
-            icon: 'far fa-edit',
-          },
-          {
-            name: 'paste',
-            icon: 'far fa-clipboard',
-          },
-        ], [
+        ],[
           {
             name: 'delete',
             icon: 'far fa-trash-alt text-danger',

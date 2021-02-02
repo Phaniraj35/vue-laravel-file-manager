@@ -2,6 +2,18 @@
   <div class="fm d-flex flex-column"
        v-bind:class="{ 'fm-full-screen': fullScreen }">
     <navbar/>
+    <div class="row d-flex mb-2" v-if="showFilter">
+
+      <v-select :value="typeFilter" :appendToBody="true" :options="selectOptions" class="col-sm-4" placeholder="Filter by file types" @input="updateStateType"></v-select>
+
+      <date-picker class="col-sm-4" format="MMMM YYYY" :value="dateFilter" v-on:input="updateStateDate" type="month" placeholder="Filter by month" />
+
+      <input type="text" :value="searchText" @input="updateSearchText" placeholder="Search" class="col-sm-4 form-control searchInput-file-manager">
+
+      <button class="btn btn-primary ml-3 mt-2" @click.prevent="applyFilter"><i class="fas fa-check"></i> Apply</button>
+
+      <button class="btn btn-danger ml-2 mt-2" @click.prevent="resetFilters"><i class="fas fa-undo"></i> Reset</button>
+    </div>
     <div class="fm-body">
       <notification/>
       <context-menu/>
@@ -32,8 +44,10 @@
 
 <script>
 /* eslint-disable import/no-duplicates, no-param-reassign */
+import vSelect from 'vue-select';
 import { mapState } from 'vuex';
 // Axios
+import DatePicker from 'vue2-datepicker';
 import HTTP from './http/axios';
 import EventBus from './eventBus';
 // Components
@@ -45,12 +59,19 @@ import Modal from './components/modals/Modal.vue';
 import InfoBlock from './components/blocks/InfoBlock.vue';
 import ContextMenu from './components/blocks/ContextMenu.vue';
 import Notification from './components/blocks/Notification.vue';
+import 'vue2-datepicker/index.css';
+import 'vue-select/dist/vue-select.css';
 // Mixins
 import translate from './mixins/translate';
 
 export default {
   name: 'FileManager',
   mixins: [translate],
+  data() {
+    return {
+      selectOptions: ['Images', 'Videos', 'Documents'],
+    }
+  },
   components: {
     Navbar,
     FolderTree,
@@ -60,6 +81,8 @@ export default {
     InfoBlock,
     ContextMenu,
     Notification,
+    'date-picker': DatePicker,
+    'v-select': vSelect,
   },
   props: {
     /**
@@ -109,6 +132,22 @@ export default {
       activeManager: (state) => state.settings.activeManager,
       showModal: (state) => state.modal.showModal,
       fullScreen: (state) => state.settings.fullScreen,
+
+      dateFilter() {
+        return this.$store.state.fm.settings.dateFilter;
+      },
+
+      typeFilter() {
+        return this.$store.state.fm.settings.typeFilter;
+      },
+
+      searchText() {
+        return this.$store.state.fm.settings.searchText;
+      },
+
+      showFilter() {
+        return this.$store.state.fm.settings.toggleFilter
+      },
     }),
   },
   methods: {
@@ -226,6 +265,39 @@ export default {
       if (this.activeManager !== managerName) {
         this.$store.commit('fm/setActiveManager', managerName);
       }
+    },
+
+    updateSearchText(e) {
+      this.$store.commit('fm/settings/setSearchText', e.target.value);
+    },
+
+    updateStateType(type) {
+      this.$store.commit('fm/settings/setTypeFilter', type);
+    },
+
+    updateStateDate(date) {
+      this.$store.commit('fm/settings/setDateFilter', date);
+    },
+
+    resetFilters() {
+      this.$store.commit('fm/settings/resetSearchText');
+      this.$store.commit('fm/settings/resetDateFilter');
+      this.$store.commit('fm/settings/resetTypeFilter');
+    },
+
+    applyFilter() {
+      const disk = this.$store.state.fm.left.selectedDisk;
+      const dateFilter = this.$store.state.fm.settings.dateFilter;
+      const typeFilter = this.$store.state.fm.settings.typeFilter;
+      const searchText = this.$store.state.fm.settings.searchText;
+      this.$store.dispatch('fm/getLoadContent', {
+        manager: 'left',
+        disk,
+        path: '',
+        dateFilter,
+        typeFilter,
+        searchText,
+      });
     },
   },
 };
